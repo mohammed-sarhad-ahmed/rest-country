@@ -257,7 +257,7 @@ h2 {
     display: grid;
     height: 50vh;
     grid-template-columns: 2fr repeat(2, 1fr);
-    grid-template-rows: 1rem 5rem 2fr 1fr;
+    grid-template-rows: 3rem 5rem 2fr 1fr;
     column-gap: 5rem;
   }
   .go-back {
