@@ -120,8 +120,8 @@ function Details({
             </p>
           </div>
           <div className="borders">
-            <strong style={{ fontSize: "2rem" }}>Border Countries:</strong>
-            <div className="border-btns">
+            <strong className="border-text">Border Countries: </strong>
+            <div className="border-btns" id="border-btns">
               {selectedCountry.borders?.length ? (
                 borders.map((borderCountry) => {
                   return (
@@ -137,7 +137,7 @@ function Details({
                   );
                 })
               ) : (
-                <p style={{ fontSize: "2rem" }}>❌ None</p>
+                <p className="none-text">❌ None</p>
               )}
             </div>
           </div>
