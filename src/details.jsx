@@ -44,6 +44,14 @@ function Details({
 
     getTheBorderName();
   }, []);
+
+  useEffect(() => {
+    document.title = selectedCountry.name.common;
+    return () => {
+      document.title = "where in the world";
+    };
+  }, [selectedCountry.name.common]);
+
   const nativeName = driveValueFromAnObject(
     selectedCountry.name.nativeName,
     "common"
