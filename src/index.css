@@ -1,13 +1,288 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,600;6..12,800&display=swap");
+
+:root {
+  font-size: 10px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 1.4rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 3rem 1rem;
+}
+
+.mode-name {
+  text-transform: capitalize;
+  margin-left: 0.6rem;
+  font-weight: 600;
+}
+
+.mode-icon:hover {
+  color: tomato;
+  font-size: larger;
+}
+
+.mode-icon:hover,
+.country:hover,
+.filter:hover {
+  cursor: pointer;
+}
+.country:hover,
+.border-btns > .btn:hover {
+  background-color: tomato;
+}
+
+.logo {
+  font-weight: 800;
+}
+
+.actions {
+  display: flex;
+  width: 90%;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.search-bar {
+  margin-top: 2rem;
+  border-radius: 5px;
+  display: flex;
+  gap: 1rem;
+  height: 4.3rem;
+  padding-left: 2rem;
+  width: 340px;
+}
+
+.search-input {
+  border: 0;
+  background-color: inherit;
+  color: inherit;
+  height: 100%;
+  flex: 1;
+  outline: none;
+  margin-right: 0.3rem;
+}
+
+.search-icon {
+  position: relative;
+  top: 33%;
+}
+
+.filter {
+  text-align: center;
+  height: 4.3rem;
+  margin-top: 3rem;
+  width: 150px;
+  border: none;
+  border-radius: 5px;
+}
+
+.country-list {
+  display: grid;
+  width: 90%;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  margin-top: 5rem;
+}
+
+.country-list,
+.error,
+.loading {
+  margin-left: auto;
+  margin-right: auto;
+}
+.error,
+.loading {
+  margin-top: 7rem;
+}
+.error {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.country {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  gap: 1rem;
+  padding-bottom: 3rem;
+}
+.country > :not(.flag) {
+  margin-left: 2rem;
+  font-size: 1.7rem;
+}
+.country > .flag {
+  width: 100%;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  height: 20rem;
+}
+.title {
+  font-size: 2.5rem !important;
+  text-transform: capitalize;
+}
+
+.go-back,
+.borders,
+.border-btns {
+  display: flex;
+}
+
+.go-back {
+  margin: 3rem 2rem;
+  align-items: center;
+  padding: 1rem 3rem;
+}
+
+.btn {
+  cursor: pointer;
+  border: none;
+  color: inherit;
+  padding: 1rem 3rem;
+}
+
+.borders {
+  flex-direction: column;
+}
+.border-btns,
+.go-back,
+.borders {
+  gap: 1.3rem;
+}
+.btn,
+.details {
+  font-size: 1.6rem;
+}
+.border-btns {
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+}
+.border-btns > button {
+  flex: 1;
+}
+
+.details {
+  margin: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.details img {
+  width: 100%;
+}
+
+.details img,
+.secondary-infos,
+.main-infos {
+  margin-bottom: 3rem;
+}
+
+.details > * {
+  color: inherit;
+}
+
+h2 {
+  margin-bottom: 2rem;
+}
+
+.main-infos,
+.secondary-infos {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+/*   modes */
+.dark-mode-el-bg {
+  background-color: hsl(209, 23%, 22%);
+}
+
+.dark-mode-bg {
+  background-color: hsl(207, 26%, 17%);
+}
+
+.white-bg {
+  background-color: white;
+}
+.white {
+  color: white;
+}
+
+.light-text {
+  color: hsl(200, 15%, 8%);
+}
+
+.light-mode-input {
+  color: hsl(0, 0%, 52%);
+}
+
+.light-mode-bg {
+  background-color: hsl(0, 0%, 98%);
+}
+
+/*  */
+@media screen and (min-width: 650px) {
+  .country-list {
+    gap: 3rem;
+  }
+
+  .header {
+    padding: 3rem 2rem;
+  }
+  .actions > * {
+    margin-top: 2rem;
+  }
+  .search-bar {
+    width: 500px;
+  }
+}
+
+@media screen and (min-width: 967px) {
+  .actions {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .header {
+    padding: 3rem 3rem;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .details {
+    margin-top: 8rem;
+    display: grid;
+    height: 50vh;
+
+    grid-template-columns: 2fr repeat(2, 1fr);
+    grid-template-rows: 30px 1fr 1fr;
+    gap: 3rem;
+  }
+  .go-back {
+    margin-top: 5rem;
+  }
+  .details img {
+    grid-row: 1/-1;
+    height: 95%;
+  }
+  .details h2 {
+    grid-column: 2 / span 2;
+  }
+  .borders {
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: start;
+  }
+  .border-btns {
+    flex-direction: row;
+  }
 }
