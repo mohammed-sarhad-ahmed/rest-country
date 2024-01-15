@@ -9,12 +9,16 @@ async function handleFetchAll() {
   }
 }
 
-async function handleQueryFetch(abortController, query) {
+async function handleQueryFetch(query, filterBy, abortController) {
   try {
-    const res = await fetch(`https://restcountries.com/v3.1/name/${query}`, {
-      signal: abortController.signal,
+    const res = await fetch(`https://restcountries.com/v3.1//name/${query}`, {
+      signal: abortController?.signal,
     });
-    const data = await res.json();
+
+    let data = await res.json();
+    if (filterBy !== "all") {
+      data = data.filter((country) => country.region === filterBy);
+    }
     if (data.length === 0 || data.status === 404)
       throw new Error(" ⛔ No country with that name was found.");
     return data;
@@ -22,10 +26,18 @@ async function handleQueryFetch(abortController, query) {
     throw error;
   }
 }
-async function handleFilterFetch(region) {
+async function handleFilterFetch(region, query) {
   try {
     const res = await fetch(`https://restcountries.com/v3.1/region/${region}`);
-    const data = await res.json();
+    let data = await res.json();
+    if (query) {
+      data = data.filter((country) => {
+        const regex = new RegExp(`^${query}.*`, "i");
+        return regex.test(country.name.common);
+      });
+    }
+    if (data.length === 0 || data.status === 404)
+      throw new Error(" ⛔ No country with that name was found.");
     return data;
   } catch (error) {
     throw error;
@@ -58,8 +70,10 @@ export function useSearch() {
         setError("");
         setIsLoading(true);
         let data;
-        if (filterBy === "all") data = await handleFetchAll();
-        else data = await handleFilterFetch(filterBy);
+        if (filterBy === "all" && !query) data = await handleFetchAll();
+        else if (filterBy === "all" && query) {
+          data = await handleQueryFetch(query, filterBy);
+        } else data = await handleFilterFetch(filterBy, query);
         setCountries(data);
       } catch (err) {
         setError(err.message);
@@ -77,7 +91,7 @@ export function useSearch() {
         setIsLoading(true);
         let data;
         if (query.length === 0) data = await handleFetchAll();
-        else data = await handleQueryFetch(abortController, query);
+        else data = await handleQueryFetch(query, filterBy, abortController);
         isMount.current = false;
         setCountries(data);
       } catch (err) {
