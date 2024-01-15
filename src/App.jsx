@@ -23,7 +23,7 @@ function App() {
     error,
     filterBy,
     handleChangeFilter,
-    resetQuery,
+    handleQueryFetch,
     setIsLoading,
   } = useSearch();
 
@@ -33,7 +33,7 @@ function App() {
   }
 
   function handleGoBack() {
-    resetQuery();
+    handleQueryFetch(query, filterBy);
     setSelectedCountry("");
   }
 

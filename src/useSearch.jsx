@@ -133,7 +133,7 @@ export function useSearch() {
     error,
     filterBy,
     handleChangeFilter,
-    resetQuery,
+    handleQueryFetch,
     setIsLoading,
   };
 }
