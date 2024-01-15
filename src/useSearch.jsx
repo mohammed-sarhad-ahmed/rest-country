@@ -37,7 +37,6 @@ async function handleFilterFetch(region, query) {
     if (query) {
       const regex = new RegExp(`${query}`, "i");
       data = data.filter((country) => {
-        console.log(country.name.common, country);
         return (
           regex.test(country.name.common) ||
           regex.test(country.cca2) ||
