@@ -11,15 +11,17 @@ async function handleFetchAll() {
 
 async function handleQueryFetch(query, filterBy, abortController) {
   try {
-    const res = await fetch(`https://restcountries.com/v3.1//name/${query}`, {
+    const res = await fetch(`https://restcountries.com/v3.1/name/${query}`, {
       signal: abortController?.signal,
     });
+    if (res.status === 404)
+      throw new Error(" ⛔ No country with that name was found.");
 
     let data = await res.json();
     if (filterBy !== "all") {
       data = data.filter((country) => country.region === filterBy);
     }
-    if (data.length === 0 || data.status === 404)
+    if (data.length === 0)
       throw new Error(" ⛔ No country with that name was found.");
     return data;
   } catch (error) {
@@ -29,14 +31,26 @@ async function handleQueryFetch(query, filterBy, abortController) {
 async function handleFilterFetch(region, query) {
   try {
     const res = await fetch(`https://restcountries.com/v3.1/region/${region}`);
+    if (res.status === 404)
+      throw new Error(" ⛔ No country with that name was found.");
     let data = await res.json();
     if (query) {
+      const regex = new RegExp(`${query}`, "i");
       data = data.filter((country) => {
-        const regex = new RegExp(`^${query}.*`, "i");
-        return regex.test(country.name.common);
+        console.log(country.name.common, country);
+        return (
+          regex.test(country.name.common) ||
+          regex.test(country.cca2) ||
+          regex.test(country.ccn3) ||
+          regex.test(country.name.official) ||
+          regex.test(country.cca3) ||
+          regex.test(country.cioc) ||
+          country.altSpellings.some((spelling) => regex.test(spelling))
+        );
       });
     }
-    if (data.length === 0 || data.status === 404)
+
+    if (data.length === 0)
       throw new Error(" ⛔ No country with that name was found.");
     return data;
   } catch (error) {
@@ -90,7 +104,10 @@ export function useSearch() {
         setError("");
         setIsLoading(true);
         let data;
-        if (query.length === 0) data = await handleFetchAll();
+        if (query.length === 0 && filterBy === "all")
+          data = await handleFetchAll();
+        else if (query.length === 0 && filterBy !== "all")
+          data = await handleFilterFetch(filterBy);
         else data = await handleQueryFetch(query, filterBy, abortController);
         isMount.current = false;
         setCountries(data);
