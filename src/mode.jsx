@@ -4,21 +4,11 @@ import { faSun } from "@fortawesome/free-regular-svg-icons";
 
 export default function Mode({ mode, onModeChange }) {
   return (
-    <div>
+    <div onClick={onModeChange}>
       {mode === "dark" ? (
-        <FontAwesomeIcon
-          icon={faSun}
-          spin
-          onClick={onModeChange}
-          className="mode-icon"
-        />
+        <FontAwesomeIcon icon={faSun} spin className="mode-icon" />
       ) : (
-        <FontAwesomeIcon
-          icon={faMoon}
-          spin
-          onClick={onModeChange}
-          className="mode-icon"
-        />
+        <FontAwesomeIcon icon={faMoon} spin className="mode-icon" />
       )}
       <span className="mode-name">
         {mode === "dark" ? "light" : "dark"} mode
