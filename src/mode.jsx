@@ -4,7 +4,7 @@ import { faSun } from "@fortawesome/free-regular-svg-icons";
 
 export default function Mode({ mode, onModeChange }) {
   return (
-    <div onClick={onModeChange}>
+    <div className="mode-change" onClick={onModeChange}>
       {mode === "dark" ? (
         <FontAwesomeIcon icon={faSun} spin className="mode-icon" />
       ) : (

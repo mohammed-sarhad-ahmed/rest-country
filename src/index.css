@@ -285,12 +285,11 @@ h2 {
   .border-btns {
     flex-direction: row;
   }
-  .mode-icon:hover {
+  .mode-change:hover {
     color: tomato;
-    font-size: larger;
   }
 
-  .mode-icon:hover,
+  .mode-change:hover,
   .country:hover,
   .filter:hover {
     cursor: pointer;

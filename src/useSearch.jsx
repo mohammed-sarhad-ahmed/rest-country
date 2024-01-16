@@ -19,7 +19,11 @@ async function handleQueryFetch(query, filterBy, abortController) {
 
     let data = await res.json();
     if (filterBy !== "all") {
-      data = data.filter((country) => country.region === filterBy);
+      console.log(filterBy);
+      data = data.filter((country) => {
+        console.log(country.region);
+        return country.region === filterBy;
+      });
     }
     if (data.length === 0)
       throw new Error(" ⛔ No country with that name was found.");
@@ -66,9 +70,6 @@ export function useSearch() {
   const isMount = useRef(true);
   function handleChangeFilter(value) {
     setFilterBy(value);
-  }
-  function resetQuery() {
-    setQuery("");
   }
 
   function handleSetQuery(newQuery) {
@@ -133,7 +134,9 @@ export function useSearch() {
     error,
     filterBy,
     handleChangeFilter,
-    handleQueryFetch,
+    handleFilterFetch,
     setIsLoading,
+    handleQueryFetch,
+    setCountries,
   };
 }
